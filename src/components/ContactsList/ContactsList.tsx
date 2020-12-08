@@ -30,6 +30,10 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
         }
     }
 
+    // This method will fetch all of the data from server. I am
+    // performing 3 requests sequentially, then using Promise.all
+    // to resolve them and store the data in State. This will only
+    // be called once when the page loads since 
     private fetchAllData(endpoints: string[]): void {
         this.setState({ isLoading: true })
 
