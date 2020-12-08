@@ -2,7 +2,7 @@ import React from 'react'
 import { BindAll } from 'lodash-decorators'
 import { DataTable } from '../DataTable/DataTable'
 import { ContactFromServer } from '../../api/models/contacts'
-import { FromServerTag } from '../../api/models/contactTags'
+import { FromServerContactTag, FromServerTag } from '../../api/models/contactTags'
 
 const API_KEY = process.env.REACT_APP_AC_API_KEY || ''
 
@@ -11,7 +11,7 @@ interface ContactsListProps {}
 interface ContactsListState {
     contacts: ContactFromServer[]
     tags: FromServerTag[]
-    contactTags: []
+    contactTags: FromServerContactTag[]
     geoIps: []
     isLoading: boolean
 }
@@ -68,6 +68,7 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
                 isLoading: false,
                 contacts: data[0].contacts,
                 contactTags: data[0].contactTags,
+                tags: data[1].tags,
             })
         })
         .catch(error => {
@@ -76,6 +77,7 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
     }
 
     public componentDidMount() {
+        // perform fetch
         this.fetchAllData([
             'https://sahmed93846.api-us1.com/api/3/contacts?include=contactTags,contactDeals,geoIps',
             'https://sahmed93846.api-us1.com/api/3/tags',
@@ -91,6 +93,7 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
                 <DataTable
                     contacts={this.state.contacts}
                     contactTags={this.state.contactTags}
+                    tags={this.state.tags}
                 />
             }</div>
         )
