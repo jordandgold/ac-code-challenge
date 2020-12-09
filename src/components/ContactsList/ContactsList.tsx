@@ -14,6 +14,8 @@ interface ContactsListState {
     contactTags: FromServerContactTag[]
     geoIps: []
     isLoading: boolean
+    hasError: boolean
+    errorMessage: string
 }
 
 @BindAll()
@@ -27,6 +29,8 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
             tags: [],
             geoIps: [],
             isLoading: false,
+            hasError: false,
+            errorMessage: '',
         }
     }
 
@@ -66,13 +70,18 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
             console.log(data)
             this.setState({
                 isLoading: false,
+                hasError: false,
                 contacts: data[0].contacts,
                 contactTags: data[0].contactTags,
                 tags: data[1].tags,
             })
         })
         .catch(error => {
-            console.log(error)
+            this.setState({
+                hasError: true,
+                errorMessage: error.toString(),
+            })
+            console.log('error')
         })
     }
 
@@ -86,9 +95,11 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
     }
 
     public render() {
-        const { isLoading } = this.state
+        const { isLoading, hasError, errorMessage } = this.state
         return (
-            <div>{ isLoading ?
+            <div>{ hasError ?
+                'Error: ' + errorMessage:
+                isLoading ?
                 'Loading...' :
                 <DataTable
                     contacts={this.state.contacts}
