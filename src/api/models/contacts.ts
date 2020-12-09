@@ -1,4 +1,4 @@
-export interface ContactFromServer {
+export interface FromServerContact {
     accountContacts: string[]
     adate: string
     anonymized: string
@@ -19,6 +19,7 @@ export interface ContactFromServer {
     email_empty: string
     email_local: string
     firstName: string
+    geoIps: string[]
     gravatar: string
     hash: string
     id: string

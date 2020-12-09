@@ -1,20 +1,22 @@
 import React from 'react'
 import { BindAll } from 'lodash-decorators'
 import { DataTable } from '../DataTable/DataTable'
-import { ContactFromServer } from '../../api/models/contacts'
+import { FromServerContact } from '../../api/models/contacts'
 import { FromServerContactTag, FromServerTag } from '../../api/models/contactTags'
+import { FromServerGeoAddress, FromServerGeoIp } from '../../api/models/geoAddresses'
 
 const API_KEY = process.env.REACT_APP_AC_API_KEY || ''
 
 interface ContactsListProps {}
 
 interface ContactsListState {
-    contacts: ContactFromServer[]
+    contacts: FromServerContact[]
     tags: FromServerTag[]
     contactTags: FromServerContactTag[]
     contactDeals: any[]
     deals: any[]
-    geoIps: []
+    geoIps: FromServerGeoIp[]
+    geoAddresses: FromServerGeoAddress[]
     isLoading: boolean
     hasError: boolean
     errorMessage: string
@@ -32,6 +34,7 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
             contactDeals: [],
             deals: [],
             geoIps: [],
+            geoAddresses: [],
             isLoading: false,
             hasError: false,
             errorMessage: '',
@@ -81,7 +84,8 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
                 tags: data[1].tags,
                 contactDeals: data[0].contactDeals,
                 deals: data[3].deals,
-                geoIps: data[2].geoIps
+                geoIps: data[2].geoIps,
+                geoAddresses: data[2].geoAddresses
 
             })
         })
@@ -118,6 +122,7 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
                     contactDeals={this.state.contactDeals}
                     deals={this.state.deals}
                     geoIps={this.state.geoIps}
+                    geoAddresses={this.state.geoAddresses}
                 />
             }</div>
         )

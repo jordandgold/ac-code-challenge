@@ -1,15 +1,17 @@
 import { BindAll } from 'lodash-decorators'
 import React from 'react'
-import { ContactFromServer } from '../../api/models/contacts'
+import { FromServerContact } from '../../api/models/contacts'
 import { FromServerContactTag, FromServerTag } from '../../api/models/contactTags'
+import { FromServerGeoAddress, FromServerGeoIp } from '../../api/models/geoAddresses'
 
 interface DataTableProps {
-    contacts: ContactFromServer[]
+    contacts: FromServerContact[]
     contactTags: FromServerContactTag[]
     tags: FromServerTag[]
     contactDeals: any[]
     deals: any[]
-    geoIps: any[]
+    geoIps: FromServerGeoIp[]
+    geoAddresses: FromServerGeoAddress[]
 }
 
 @BindAll()
@@ -20,6 +22,7 @@ export class DataTable extends React.Component<DataTableProps> {
         return contacts.map((contact) => {
             const contactTags = this.getTags(contact.contactTags)
             const contactDeals = this.getDeals(contact.contactDeals)
+            const geoAddress = this.getGeoLocation(contact.geoIps)
 
             return (
                 <tr key={contact.id}>
@@ -74,6 +77,22 @@ export class DataTable extends React.Component<DataTableProps> {
         })
 
         return dealNames.join(', ');
+    }
+
+    private getGeoLocation(geoIpsFromContact: string[]): void {
+        const { geoIps, geoAddresses } = this.props
+
+        // match the contact tag IDs to tag IDs
+        const newGeoIds = geoIps.filter(geoIp => {
+            return geoIpsFromContact.indexOf(geoIp.id) !== -1;
+        }).map(geoIp => {
+            return geoIp.id
+        })
+
+        console.log(newGeoIds)
+
+
+        // return dealNames.join(', ');
     }
 
     render() {
