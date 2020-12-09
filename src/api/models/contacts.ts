@@ -7,6 +7,7 @@ export interface ContactFromServer {
     bounced_soft: string
     cdate: string
     contactTags: string[]
+    contactDeals: string[]
     created_by: string
     created_timestamp: string
     created_utc_timestamp: string

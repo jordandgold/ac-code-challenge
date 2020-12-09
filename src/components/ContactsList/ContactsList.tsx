@@ -12,6 +12,8 @@ interface ContactsListState {
     contacts: ContactFromServer[]
     tags: FromServerTag[]
     contactTags: FromServerContactTag[]
+    contactDeals: any[]
+    deals: any[]
     geoIps: []
     isLoading: boolean
     hasError: boolean
@@ -27,6 +29,8 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
             contacts: [],
             contactTags: [],
             tags: [],
+            contactDeals: [],
+            deals: [],
             geoIps: [],
             isLoading: false,
             hasError: false,
@@ -47,6 +51,7 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
 
         let requestArray = endpoints.map(url => {
             return fetch('https://cors-anywhere.herokuapp.com/' + url, {
+                "method": "GET",
                 headers: requestHeaders
             })
             .then(response => {
@@ -74,6 +79,10 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
                 contacts: data[0].contacts,
                 contactTags: data[0].contactTags,
                 tags: data[1].tags,
+                contactDeals: data[0].contactDeals,
+                deals: data[3].deals,
+                geoIps: data[2].geoIps
+
             })
         })
         .catch(error => {
@@ -91,6 +100,7 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
             'https://sahmed93846.api-us1.com/api/3/contacts?include=contactTags,contactDeals,geoIps',
             'https://sahmed93846.api-us1.com/api/3/tags',
             'https://sahmed93846.api-us1.com/api/3/geoIps',
+            'https://sahmed93846.api-us1.com/api/3/deals',
         ])
     }
 
@@ -105,6 +115,9 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
                     contacts={this.state.contacts}
                     contactTags={this.state.contactTags}
                     tags={this.state.tags}
+                    contactDeals={this.state.contactDeals}
+                    deals={this.state.deals}
+                    geoIps={this.state.geoIps}
                 />
             }</div>
         )
