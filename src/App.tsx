@@ -1,13 +1,11 @@
 import React from 'react';
 import { ContactsList } from "./components/ContactsList/ContactsList";
-import './App.css';
+import './App.scss';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <ContactsList />
-      </header>
+      <ContactsList />
     </div>
   );
 }

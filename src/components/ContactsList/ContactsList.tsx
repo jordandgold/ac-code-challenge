@@ -111,20 +111,22 @@ export class ContactsList extends React.Component<ContactsListProps, ContactsLis
     public render() {
         const { isLoading, hasError, errorMessage } = this.state
         return (
-            <div>{ hasError ?
-                'Error: ' + errorMessage:
-                isLoading ?
-                'Loading...' :
-                <DataTable
-                    contacts={this.state.contacts}
-                    contactTags={this.state.contactTags}
-                    tags={this.state.tags}
-                    contactDeals={this.state.contactDeals}
-                    deals={this.state.deals}
-                    geoIps={this.state.geoIps}
-                    geoAddresses={this.state.geoAddresses}
-                />
-            }</div>
+            <>
+                { hasError ?
+                    'Error: ' + errorMessage:
+                    isLoading ?
+                    'Loading...' :
+                    <DataTable
+                        contacts={this.state.contacts}
+                        contactTags={this.state.contactTags}
+                        tags={this.state.tags}
+                        contactDeals={this.state.contactDeals}
+                        deals={this.state.deals}
+                        geoIps={this.state.geoIps}
+                        geoAddresses={this.state.geoAddresses}
+                    />
+                }
+            </>
         )
     }
 }
