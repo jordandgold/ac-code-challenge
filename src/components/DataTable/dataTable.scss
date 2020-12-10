@@ -1,0 +1,41 @@
+$blue: #416fde;
+$gray100: #e4e7ef;
+$gray200: #fafbff;
+
+.ac-data-table {
+    border: 1px solid $gray100;
+    text-align: left;
+    font-size: 14px;
+    border-collapse: collapse;
+    width: 80%;
+
+    thead {
+        font-size: 13px;
+        border: 1px solid $gray100;
+    }
+
+    th {
+        padding: 6px 12px;
+        color: #666c81;
+        font-weight: 600;
+    }
+
+    tr {
+        border: 1px solid $gray100;
+        &:hover {
+            td {
+                background-color: $gray200;
+            }
+        }
+    }
+
+    td {
+        padding: 12px;
+    }
+}
+
+a {
+    color: $blue;
+    font-weight: 600;
+    text-decoration: none;
+}
