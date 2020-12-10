@@ -1,5 +1,6 @@
 {
   "name": "ac-code-challenge",
+  "homepage": "http://jordangold.co/ac-code-challenge",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
